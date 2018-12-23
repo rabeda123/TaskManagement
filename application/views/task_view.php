@@ -40,7 +40,7 @@ body{
     padding: 5px;
     display: table; 
     text-align: center; 
-    background-color:#81F7F3;
+    background-color:#002233;
     -webkit-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     -moz-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
@@ -54,10 +54,11 @@ body{
 .total_task_div_child_1 {
     display: table-cell;
     vertical-align: middle;
-    background-color:#81F7F3;
+    background-color:#80d4ff;
     color:black;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
+
 
 }
 .total_task_div_child_2 {
@@ -85,7 +86,7 @@ body{
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-    background-color:#81F7F3;
+    background-color:#002233;
     -webkit-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     -moz-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     box-shadow: 1px 0px 21px 7x rgba(0,0,0,0.31);
@@ -98,7 +99,7 @@ body{
 .task_completed_div_child_1 {
     display: table-cell;
     vertical-align: middle;
-    background-color:#81F7F3;
+    background-color:#80d4ff;
     color:black;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
@@ -122,7 +123,7 @@ body{
     padding: 5px;
     display: table; 
     text-align: center; 
-    background-color:#81F7F3;
+    background-color:#002233;
     -webkit-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     -moz-box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
     box-shadow: 1px 0px 21px 7px rgba(0,0,0,0.31);
@@ -134,7 +135,7 @@ body{
 .task_remaining_div_child_1 {
     display: table-cell;
     vertical-align: middle;
-    background-color:#81F7F3;
+    background-color:#80d4ff;
     color:black;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
@@ -190,8 +191,8 @@ body{
 .add_new_task{
     display: inline-block;
     vertical-align: middle;
-    background-color:blue;
-    color:white;
+    background-color:#80d4ff;
+    color:black;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -201,6 +202,7 @@ body{
     text-align: center;
     padding-top: 12px;
     padding-bottom: 12px;
+    font-weight: bold;
 }
 .action_title{
 
@@ -256,6 +258,41 @@ body{
             resizable: false
         });
 
+
+        $("#total_task_div").click(function() {
+
+            $('#task_table > tbody  > tr').each(function() {
+                $(this).show();
+            });
+        });
+
+        $("#task_completed_div").click(function() {
+
+            $('#task_table > tbody  > tr').each(function() {
+                if ( $(this).find("td#task_status_name_td").data("id") == 1 ){
+                    $(this).show();
+                }
+                else{
+                    $(this).hide();
+                }
+
+            });
+        });
+
+        $("#task_remaining_div").click(function() {
+
+            $('#task_table tbody > tr').each(function() {
+               if ( $(this).find("td#task_status_name_td").data("id") == 0 ){
+                    $(this).show();
+                }
+                else{
+                    $(this).hide();
+                }
+
+            });
+        });
+
+          
 
         $('#add_new_task').click(function() {
 
@@ -330,7 +367,7 @@ body{
                     success : function(result) {
                     
                         if (result){
-                            this_tr.css("display","none");
+                            current_task_tr.hide();
                         }
                     } 
                 });
@@ -390,17 +427,20 @@ body{
 
 <div class="current_view">
     <div class="task_type_div">
-        <div id='total_task_div' class="total_task_div">
-            <div class="total_task_div_child_1">Total Task</div>
-            <div id="total_task_div_child_2" class="total_task_div_child_2"><?php echo $total; ?></div>
+        <div id='total_task_div' class="total_task_div" title="push to show all task">
+            <div id="total_task_div_child_1" class="total_task_div_child_1">Total Task</div>
+            <div id="total_task_div_child_2" class="total_task_div_child_2">
+                <strong><?php echo $total; ?></strong></div>
         </div>
-        <div id='task_completed_div' class="task_completed_div">
-            <div class="task_completed_div_child_1">Task Completed</div>
-            <div id="task_completed_div_child_2" class="task_completed_div_child_2"><?php echo $completed; ?></div>
+        <div id='task_completed_div' class="task_completed_div" title="push to show Completed tasks">
+            <div id="task_completed_div_child_1" class="task_completed_div_child_1">Task Completed</div>
+            <div id="task_completed_div_child_2" class="task_completed_div_child_2">
+                <strong><?php echo $completed; ?></strong></div>
         </div>
-        <div id='task_remaining_div' class="task_remaining_div">
-            <div class="task_remaining_div_child_1">Task Remaining</div>
-            <div id="task_remaining_div_child_2" class="task_remaining_div_child_2"><?php echo $remaining; ?></div>
+        <div id='task_remaining_div' class="task_remaining_div" title="push to show all Remaining tasks">
+            <div id="task_remaining_div_child_1" class="task_remaining_div_child_1">Task Remaining</div>
+            <div id="task_remaining_div_child_2" class="task_remaining_div_child_2">
+                <strong><?php echo $remaining; ?></strong></div>
         </div>
     </div>
 

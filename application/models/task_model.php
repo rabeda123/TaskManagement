@@ -25,7 +25,7 @@ class Task_model extends CI_Model {
                 when 0 then "remaining" 
                 else "completed" 
             end as task_status_name 
-          from tasks t order by t.created_on';
+          from tasks t order by t.task_id asc';
       return $this->db->query($q)->result();
    }
 
