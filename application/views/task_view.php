@@ -210,6 +210,33 @@ body{
     color: #4dd2ff;
 }
 
+.choose_option_submit{
+    margin-top: 50px;
+    margin-left: 130px;  
+}
+.update_task_submit{
+    margin-top: 50px;
+    margin-left: 100px;  
+}
+
+.submit_button{
+    background-color:#80d4ff;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    cursor: pointer;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.instructions{
+    float: right;
+}
+
 </style>
 
 </head>
@@ -241,7 +268,7 @@ body{
         });
 
         $('#choose_option_dialog').dialog({
-            title: 'Update Task',
+            title: 'Option Task',
             autoOpen: false,
             width: 400,
             height: 300,
@@ -258,6 +285,14 @@ body{
             resizable: false
         });
 
+        $('#instructions_dialog').dialog({
+            title: 'Instructions',
+            autoOpen: false,
+            width: 600,
+            height: 400,
+            modal : true,
+            resizable: false
+        });
 
         $("#total_task_div").click(function() {
 
@@ -341,8 +376,8 @@ body{
             $radios = $('input:radio[name=task_status_radio]');
             $radios.filter('[value='+ task_status_td+']').prop('checked', true);
             // $radios.filter('[value='+ task_status_td+']').attr('disabled', true);
+            $("#action_title_choose").text(" ( id: " + task_id_td + " , name: " + task_name_td + " ) ");
             $("#choose_option_dialog").dialog ("open");
-        
         });
 
 
@@ -352,8 +387,8 @@ body{
             radio_choosen = $("input[name='choose_option_radio']:checked").val();
 
             if ( radio_choosen == 0 ){
-                $("#action_title_task_name").append(" ( id: " + task_id_td + " , name: " + task_name_td + " ) ");
-                $("#action_title_task_status").append(" ( current status is: " + task_status_name_td + " ) ");
+                $("#action_title_task_name").text(" ( id: " + task_id_td + " , name: " + task_name_td + " ) ");
+                $("#action_title_task_status").text(" ( current status is: " + task_status_name_td + " ) ");
                 $("#update_task_name").val(task_name_td);
                 $("#update_task_dialog").dialog ("open");
             }
@@ -408,6 +443,12 @@ body{
            
         });
 
+        $('#instructions').click(function() {
+
+            $("#instructions_dialog").dialog ("open");
+
+        });
+
     });
 
 </script>
@@ -426,6 +467,7 @@ body{
  ?>
 
 <div class="current_view">
+    <input type="button" value="Instructions" id="instructions" class="instructions submit_button">
     <div class="task_type_div">
         <div id='total_task_div' class="total_task_div" title="push to show all task">
             <div id="total_task_div_child_1" class="total_task_div_child_1">Total Task</div>
@@ -473,21 +515,22 @@ body{
         </tbody>
     </table>
 
+
 </div>
 
 <div id="create_new_task_dialog" class="create_new_task_dialog" > 
     <p class="action_title">Enter name:</p>
     <input id="new_task_name" class="new_task_name" type="text" >
-    <input type="button" value="submit" id="new_task_submit" class="new_task_submit">
+    <input type="button" value="submit" id="new_task_submit" class="new_task_submit submit_button">
 </div>
     
 <div id="choose_option_dialog" class="choose_option_dialog" > 
-    <p class="action_title">choose option:</p> 
-    <input type="radio" name="choose_option_radio" value="0">edit task<br>
-    <input type="radio" name="choose_option_radio" value="1">delete task<br>  
-    <input type="radio" name="choose_option_radio" value="2" checked>cancel<br>  
+    <p class="action_title" id="action_title_choose"><br></p> 
+    <input type="radio" name="choose_option_radio" value="0">edit task
+    <input type="radio" name="choose_option_radio" value="1">delete task 
+    <input type="radio" name="choose_option_radio" value="2" checked>cancel
     <br>
-    <input type="button" value="submit" id="choose_option_submit" class="choose_option_submit">
+    <input type="button" value="submit" id="choose_option_submit" class="choose_option_submit submit_button">
 </div>    
 
 <div id="update_task_dialog" class="update_task_dialog" > 
@@ -496,12 +539,27 @@ body{
     <br>
     <br>
     <p class="action_title" id="action_title_task_status">Change task status:<br></p>
-    <input type="radio" name="task_status_radio" value="0" data-name="remaining">remaining<br>
-    <input type="radio" name="task_status_radio" value="1" data-name="completed">completed<br>  
+    <input type="radio" name="task_status_radio" value="0" data-name="remaining">remaining
+    <input type="radio" name="task_status_radio" value="1" data-name="completed">completed 
     <!-- <input type="radio" name="task_status_radio" value="2" checked>dont change<br> -->
     <br>
-    <input type="button" value="Save Changes" id="update_task_submit" class="update_task_submit">
+    <input type="button" value="Save Changes" id="update_task_submit" class="update_task_submit submit_button">
 </div>    
 
+<div id="instructions_dialog" class="instructions_dialog" > 
+    <div>
+        This is a Task Management System.<br>
+        You can create new tasks and update existing tasks.<br>
+        When you click "task types" ( total , complited and remaining ) in header at the top of the page,<br> 
+        the page displays your selection<br> 
+        (for example, if you select completed task you will only see completed tasks).<br>
+        Each time you click on one of the rows in the table,<br> 
+        a dialog will be open with the option to edit/delete tasks, <br> 
+        and there is also an accessible button <br> 
+        to create a new task in the upper rigth corner of the table.<br> 
+
+        <strong>good luck!</strong>
+    </div>
+</div>    
     
 </body>
