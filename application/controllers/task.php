@@ -15,10 +15,8 @@ class Task extends CI_Controller {
         $data['title'] = 'Tasks_Management';
         $data['tasks'] = $this->task_model->getAllTasks();
         $data['tasks_by_status'] = $this->task_model->getTasksByStatus();
-        // die( print_r($data['tasks_by_status']));
         $this->load->view('task_view',$data);
     }
-
 
     public function insertNewTask(){ // create new task
         

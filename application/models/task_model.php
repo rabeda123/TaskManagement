@@ -69,7 +69,8 @@ class Task_model extends CI_Model {
 		  $task_details = array();
    		$task_details['task_name'] = $task_name;
    		$task_details['task_status'] = $task_status;
-   		
+   		$task_details['last_update'] = date("Y-m-d h:i:s");
+
 		  $this->db->trans_start();
 		  $this->db->where('task_id', $task_id);
       $this->db->update('tasks', $task_details);
